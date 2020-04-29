@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'avm/result'
+require 'eac_ruby_gems_utils/gem'
 require 'eac_ruby_utils/console/speaker'
 require 'eac_ruby_utils/envs'
 require 'eac_ruby_utils/simple_cache'
@@ -91,6 +92,10 @@ module EacRedmineBase0
         )
       end
 
+      def rails_gem_uncached
+        ::EacRubyGemsUtils::Gem.new(::Rails.root)
+      end
+
       def run_test_uncached
         r = run_test_command.execute
         ::File.write(stderr_log, r.fetch(:stderr))
@@ -99,9 +104,7 @@ module EacRedmineBase0
       end
 
       def run_test_command
-        ::EacRubyUtils::Envs.local.command('bundle', 'exec', 'rake', test_task_name)
-                            .envvar('RAILS_ENV', 'test')
-                            .chdir(::Rails.root)
+        rails_gem.bundle('exec', 'rake', test_task_name).envvar('RAILS_ENV', 'test')
       end
     end
   end
