@@ -20,14 +20,16 @@ module EacRedmineBase0
 
       private
 
+      def test
+        test_by_type(maintained? ? :rake_task : :unmaintened_stub)
+      end
+
       def test_by_type(type)
         ::EacRedmineBase0::PluginsTest.const_get(type.to_s.camelize + 'Test').new(self)
       end
 
       def test_result_uncached
-        return ::Avm::Result.neutral('not maintained by E.A.C.') unless maintained?
-
-        test_by_type(:rake_task).test_result
+        test.test_result
       end
 
       def rails_gem_uncached
