@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
+require 'avm/instances/configuration' # TO-DO: remove when fixed in gem "avm-tools"
+require 'avm/patches/eac_ruby_gems_utils/gem'
 require 'avm/result'
-require 'eac_ruby_gems_utils/gem'
 require 'eac_ruby_utils/console/speaker'
 require 'eac_ruby_utils/envs'
 require 'eac_ruby_utils/simple_cache'
