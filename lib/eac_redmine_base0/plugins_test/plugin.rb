@@ -18,18 +18,16 @@ module EacRedmineBase0
         ::EacRedmineBase0.maintained_plugins.any? { |plugin| plugin.id == id }
       end
 
-      private
+      def tests
+        return [test_by_type(:unmaintened_stub)] unless maintained?
 
-      def test
-        test_by_type(maintained? ? :rake_task : :unmaintened_stub)
+        [test_by_type(:rake_task)]
       end
+
+      private
 
       def test_by_type(type)
         ::EacRedmineBase0::PluginsTest.const_get(type.to_s.camelize + 'Test').new(self)
-      end
-
-      def test_result_uncached
-        test.test_result
       end
 
       def rails_gem_uncached

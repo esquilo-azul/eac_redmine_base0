@@ -8,7 +8,7 @@ module EacRedmineBase0
     include ::EacRubyUtils::Console::Speaker
 
     def run
-      @plugins = []
+      @tests = []
       ::Redmine::Plugin.registered_plugins.each_value do |plugin|
         check_plugin(plugin)
       end
@@ -16,29 +16,32 @@ module EacRedmineBase0
     end
 
     def check_plugin(plugin)
-      infom "Checking plugin \"#{plugin.id}\"..."
-      test_plugin = ::EacRedmineBase0::PluginsTest::Plugin.new(plugin)
-      test_plugin.test_result
-      infom "Plugin \"#{plugin.id}\" checked"
-      @plugins << test_plugin
+      ::EacRedmineBase0::PluginsTest::Plugin.new(plugin).tests.each { |test| check_test(test) }
+    end
+
+    def check_test(test)
+      infom "Checking test \"#{test}\"..."
+      test.test_result
+      infom "Test \"#{test}\" checked"
+      @tests << test
       results_banner
     end
 
     def results_banner
-      infom 'Plugins\' test results:'
-      @plugins.each do |plugin|
-        infov "  * #{plugin.id}", plugin.test_result.label
+      infom 'Tests\' results:'
+      @tests.each do |test|
+        infov "  * #{test}", test.test_result.label
       end
     end
 
-    def plugins_failed
-      @plugins.select { |plugin| plugin.test_result.error? }
+    def tests_failed
+      @tests.select { |test| test.test_result.error? }
     end
 
     def check_results
-      if plugins_failed.any?
+      if tests_failed.any?
         fatal_error "Some test did not pass:\n" +
-                    plugins_failed.map { |p| "  * #{p.id} (Log: #{p.stdout_log})" }.join("\n")
+                    tests_failed.map { |test| "  * #{test} (Log: #{test.stdout_log})" }.join("\n")
       else
         success 'All tests passed'
       end

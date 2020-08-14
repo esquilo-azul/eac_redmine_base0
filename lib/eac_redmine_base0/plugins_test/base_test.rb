@@ -16,6 +16,14 @@ module EacRedmineBase0
         log_path('stdout')
       end
 
+      def test_name
+        self.class.name.demodulize.gsub(/Test\z/, '').underscore
+      end
+
+      def to_s
+        "#{plugin.id}/#{test_name}"
+      end
+
       private
 
       def log_path(suffix)
