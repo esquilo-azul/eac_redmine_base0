@@ -21,13 +21,17 @@ module EacRedmineBase0
       def tests
         return [test_by_type(:unmaintened_stub)] unless maintained?
 
-        [test_by_type(:rake_task)]
+        [test_by_type(:rake_task), test_by_type(:rubocop)]
       end
 
       private
 
       def test_by_type(type)
         ::EacRedmineBase0::PluginsTest.const_get(type.to_s.camelize + 'Test').new(self)
+      end
+
+      def plugin_gem_uncached
+        ::EacRubyGemsUtils::Gem.new(directory)
       end
 
       def rails_gem_uncached
