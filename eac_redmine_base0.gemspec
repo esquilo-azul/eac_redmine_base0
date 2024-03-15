@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = EacRedmineBase0::SUMMARY
   s.homepage    = EacRedmineBase0::HOMEPAGE
 
-  s.files = Dir['{bin,lib}/**/*', 'init.rb']
+  s.files = Dir['{lib}/**/*', 'init.rb']
   s.required_ruby_version = '>= 2.7'
 
   s.add_dependency 'eac_ruby_utils', '~> 0.121'
