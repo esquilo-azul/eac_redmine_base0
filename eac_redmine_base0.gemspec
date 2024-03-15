@@ -8,10 +8,10 @@ require 'eac_redmine_base0/version'
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = 'eac_redmine_base0'
-  s.version     = ::EacRedmineBase0::VERSION
-  s.authors     = [::EacRedmineBase0::VERSION]
-  s.summary     = ::EacRedmineBase0::SUMMARY
-  s.homepage    = ::EacRedmineBase0::HOMEPAGE
+  s.version     = EacRedmineBase0::VERSION
+  s.authors     = [EacRedmineBase0::VERSION]
+  s.summary     = EacRedmineBase0::SUMMARY
+  s.homepage    = EacRedmineBase0::HOMEPAGE
 
   s.files = Dir['{app,config,lib}/**/*', 'init.rb']
   s.required_ruby_version = '>= 2.7'
