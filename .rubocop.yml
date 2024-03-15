@@ -1,9 +1,6 @@
 ---
 inherit_gem:
   eac_rails_gem_support: ".rubocop.yml"
-Gemspec/RequiredRubyVersion:
-  Exclude:
-  - eac_redmine_base0.gemspec
 Style/RedundantConstantBase:
   Exclude:
   - eac_redmine_base0.gemspec
